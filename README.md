@@ -60,7 +60,7 @@ It is necessary to download the Swagger JSON schema from the reference implement
 ```
 % curl http://localhost:5025/swagger/v1/swagger.json > piqi-alliance-reference-implementation.schema.json
 % brew install openapi-generator
-% openapi-generator generate -i piqi-alliance-reference-implementation.schema.json -g java --artifact-id "reference-implementation" --artifact-version "0.1.0"  --model-package "org.piqialliace.model" --api-package "org.piqialliance.api" --group-id "org.piqialliance" -o piqi-alliance-swagger
+% openapi-generator generate -i piqi-alliance-reference-implementation.schema.json -g java --artifact-id "reference-implementation" --artifact-version "0.1.0"  --model-package "org.piqialliance.model" --api-package "org.piqialliance.api" --group-id "org.piqialliance" -o piqi-alliance-swagger
 % cd piqi-alliance-swagger
 % ./gradlew build publishToMavenLocal
 ```

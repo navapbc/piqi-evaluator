@@ -30,15 +30,17 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/io.github.linuxforhealth/hl7v2-fhir-converter
+    implementation("io.github.linuxforhealth:hl7v2-fhir-converter:v1.1.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation("org.piqialliance:reference-implementation:0.1.0")
+    implementation("org.piqialliance:reference-implementation:0.1.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-base:8.4.0")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:8.4.0")
-    implementation("com.navapbc.piqi:piqi-map:0.1.0")
-    implementation("com.navapbc.piqi:piqi-model:0.1.0")
+    implementation("com.navapbc.piqi:piqi-map:0.2.1")
+    implementation("com.navapbc.piqi:piqi-model:0.1.1")
     implementation("org.springframework.boot:spring-boot-starter")
-    compileOnly("org.projectlombok:lombok")
+    //compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

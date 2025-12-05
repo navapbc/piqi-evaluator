@@ -1,7 +1,7 @@
 package com.navapbc.piqi.evaluator;
 
 import lombok.Data;
-import org.piqialliace.model.DataClassScoreResult;
+import org.piqialliance.model.DataClassScoreResult;
 
 import java.util.HashMap;
 import java.util.Map;

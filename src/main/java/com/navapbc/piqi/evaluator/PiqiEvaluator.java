@@ -12,9 +12,9 @@ import com.navapbc.piqi.model.PiqiLabResult;
 import com.navapbc.piqi.model.PiqiPatient;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.Bundle;
-import org.piqialliace.model.DataClassScoreResult;
-import org.piqialliace.model.PIQIRequest;
-import org.piqialliace.model.PIQIResponse;
+import org.piqialliance.model.DataClassScoreResult;
+import org.piqialliance.model.PIQIRequest;
+import org.piqialliance.model.PIQIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -105,6 +105,7 @@ public class PiqiEvaluator implements CommandLineRunner {
                     updatePiqiScorecard(result, inputFile,  outputPath);
                 } catch (Exception e) {
                     log.error("Error processing file=[{}]", inputFile, e);
+                    writeToOutputDirectory(outputPath, inputFile, "error", e.toString());
                 }
             }
         } else {
@@ -134,15 +135,24 @@ public class PiqiEvaluator implements CommandLineRunner {
             } else {
                 piqiScorecard.addToFailed(1L);
             }
-            String fileName = outputPath + File.separator + Paths.get(inputFile).getFileName().toString() + ".piqi";
-            log.debug("Output file=[{}]", fileName);
-            FileWriter writer = new FileWriter(fileName);
-            writer.write(mapper.writeValueAsString(response));
-            writer.close();
+//            String fileName = outputPath + File.separator + Paths.get(inputFile).getFileName().toString() + ".piqi";
+//            log.debug("Output file=[{}]", fileName);
+//            FileWriter writer = new FileWriter(fileName);
+//            writer.write(mapper.writeValueAsString(response));
+//            writer.close();
+            writeToOutputDirectory(outputPath, inputFile, "piqi", mapper.writeValueAsString(response));
         } else {
             log.error("Error posting file=[{}]", inputFile);
             piqiScorecard.addToFailed(1L);
+            writeToOutputDirectory(outputPath, inputFile, "error", "Result was null for " + inputFile);
         }
+    }
+
+    private void writeToOutputDirectory(String outputPath, String inputFile, String suffix, String content) throws IOException {
+        String fileName = outputPath + File.separator + Paths.get(inputFile).getFileName().toString() + "." + suffix;
+        FileWriter writer = new FileWriter(fileName);
+        writer.write(mapper.writeValueAsString(content));
+        writer.close();
     }
 
     private List<String> getFilesToEvaluate() throws IOException {
